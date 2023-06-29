@@ -21,6 +21,7 @@ public class ButtonPanelController : MonoBehaviour
         button.onClick.AddListener(OnClick);
         PlayerPrefs.SetInt("PlayerPref", 0); // Set PlayerPref to 0 for first button
         PlayerPrefs.SetInt("Lesson", 0);
+        PlayerPrefs.SetInt("Layer", 0);
     }
 
     private void OnClick()
@@ -37,23 +38,26 @@ public class ButtonPanelController : MonoBehaviour
             {
                 panelA.SetActive(true);
                 panelB.SetActive(false);
+                PlayerPrefs.SetInt("Layer", 1);
             }
             else
             {
                 panelA.SetActive(false);
                 panelB.SetActive(true);
+                PlayerPrefs.SetInt("Layer", 2);
             }
             PlayerPrefs.SetInt("PlayerPref", 1); // Set PlayerPref to 1 for first button
         }
         else if (!isSecondButtonChosen) // Check if it's the second button
         {
+            int playerPrefValue = PlayerPrefs.GetInt("Layer");
             isSecondButtonChosen = true;
-            if (panelA.activeSelf)
+            if (playerPrefValue==1)
             {
                 panelA.SetActive(false);
                 panelB.SetActive(true);
             }
-            else
+            else if (playerPrefValue == 2)
             {
                 panelA.SetActive(true);
                 panelB.SetActive(false);
